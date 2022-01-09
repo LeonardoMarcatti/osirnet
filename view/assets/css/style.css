@@ -1,0 +1,22 @@
+#form{
+    background-color: rgb(203, 159, 245);
+    box-shadow: 0px 0px 10px gray;
+    padding: 15px;
+    margin-top: 5px;
+}
+
+#table{
+    padding: 5px;
+}
+
+.detalhe:hover{
+    color: green;
+}
+
+.del{
+    color: darkred;
+}
+
+.del:hover{
+    color:red;
+}

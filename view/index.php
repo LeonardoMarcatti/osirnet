@@ -1,5 +1,7 @@
 <?php
     namespace OsirNet\view;
+
+    require_once '../controller/indexController.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,11 +15,13 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
         <script src="https://kit.fontawesome.com/ec29234e56.js" crossorigin="anonymous" defer></script>
+        <script src="assets/js/script.js" defer></script>
+        <link rel="stylesheet" href="assets/css/style.css">
         <title>PHP</title>
     </head>
     <body>
         <div class="container-fluid">
-            <div class="float-start col-3">
+            <div class="float-start col-3" id="form">
                 <form action="" method="post" id="addform">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome:</label>
@@ -31,21 +35,40 @@
                         <label for="nome" class="form-label">Departamento:</label>
                         <select name="dpto" id="dpto" class="form-select">
                             <option value="0" selected>Selecione um departamento</option>
+                            <?php
+                                foreach ($lista_dptos as $key => $dpto) {?>
+                                    <option value="<?=$dpto->getID()?>"><?=$dpto->getNome()?></option>
+                            <?php }; ?>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <button id="btn-cadastro" type="submit" class="btn btn-outline-success">Cadastrar</button>
                     </div>
                 </form>
             </div>
-            <div class="float-end col-8">
-                <table class="table table-stripped table-bordered table-hover">
+            <div class="float-end col-9" id="table">
+                <table class="table table-striped table-bordered table-hover">
                     <thead class="table-dark text-center">
                         <th class="col-1">ID</th>
                         <th class="col-3">Nome</th>
-                        <th class="col-3">Email</th>
+                        <th class="col-2">Email</th>
                         <th class="col-2">Dpto</th>
-                        <th class="col-2">Detalhes</th>
-                        <th class="col-2">Deletar</th>
+                        <th class="col-1">Detalhes</th>
+                        <th class="col-1">Deletar</th>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <?php
+                            foreach ($lista_colaboradores as $key => $value) { ?>
+                                <tr>
+                                    <td class="text-center"><?=$value['id']?></td>
+                                    <td><?=$value['nome']?></td>
+                                    <td><?=$value['email']?></td>
+                                    <td class="text-center"><?=$value['dpto']?></td>
+                                    <td class="text-center"><a href="detalhes.php?id=<?=$value['id']?>" class="detalhe"><i class="fas fa-user-check"></i></a></td>
+                                    <td class="text-center"><a href="delete.php?id=<?=$value['id']?>" class="del"><i class="fas fa-trash"></i></a></td>
+                                </tr>
+                        <?php }; ?>
+                    </tbody>
                 </table>
             </div>
         </div>
