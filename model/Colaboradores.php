@@ -102,9 +102,5 @@
             $delete->bindValue(':id', $c->getID());
             $delete->execute();
         }
-    }
-    
-    
-
-
+    } 
 ?>
