@@ -10,4 +10,3 @@ $('#addform').on('submit', function (p) {
         }
     });
 });
-

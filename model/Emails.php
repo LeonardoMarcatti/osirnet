@@ -62,14 +62,35 @@
             $select = $this->conn->prepare($sql);
             $select->bindValue(':idc', $e->getIDColaborador());
             $select->execute();
-            $result = $select->fetch(PDO::FETCH_ASSOC);
+            if ($select->rowCount() >0 ) {
+                $result = $select->fetch(PDO::FETCH_ASSOC);
 
-            $email = new Emails;
-            $email->setID($result['id']);
-            $email->setEmail($result['email']);
-            $email->setIDColaborador($result['id_colaborador']);
+                $email = new Emails;
+                $email->setID($result['id']);
+                $email->setEmail($result['email']);
+                $email->setIDColaborador($result['id_colaborador']);
+    
+                return $email;
+            } else{
+                return false;
+            };
+        }
 
-            return $email;
+        public function atualizaEmail(Emails $e)
+        {
+            $sql = 'update emails set email = :e where id_colaborador = :id';
+            $update = $this->conn->prepare($sql);
+            $update->bindValue(':e', $e->getEmail());
+            $update->bindValue(':id', $e->getIDColaborador());
+            $update->execute();
+        }
+
+        public function deleteEmail(Emails $e)
+        {
+            $sql = 'delete from emails where id_colaborador = :id';
+            $delete = $this->conn->prepare($sql);
+            $delete->bindValue(':id', $e->getIDColaborador());
+            $delete->execute();
         }
     };
     

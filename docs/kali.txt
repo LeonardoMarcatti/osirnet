@@ -1,0 +1,5 @@
+1 - apt update && apt dist-upgrade -yfm && apt autoremove -Y && \
+apt install gdebi git tor bleachbit youtube-dl libreoffice \
+clamav openvas -yfm && apt install virtualbox-guest-x11 && init 6
+
+2 - Instalar o virtualboxaddons

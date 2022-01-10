@@ -49,7 +49,7 @@
 
         public function getColaboradores()
         {
-            $sql = 'select c.id, c.nome, d.nome as dpto, ifnull(e.email, "-") as email from colaboradores c join departamentos d on c.id_dpto = d.id left join emails e on e.id_colaborador = c.id order by c.id asc';
+            $sql = 'select c.id, c.nome, d.nome as dpto, e.email from colaboradores c join departamentos d on c.id_dpto = d.id left join emails e on e.id_colaborador = c.id order by c.id asc';
             $select = $this->conn->prepare($sql);
             $select->execute();
             $result = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -73,6 +73,34 @@
             $select->execute();
             $result = $select->fetch(PDO::FETCH_ASSOC)['id'];
             return $result;
+        }
+
+        public function getColaborador(Colaboradores $c)
+        {
+            $sql = 'call detalhes(:id)';
+            $select = $this->conn->prepare($sql);
+            $select->bindValue(':id', $c->getID());
+            $select->execute();
+            $result = $select->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function atualizaColaborador(Colaboradores $c)
+        {
+            $sql = 'update colaboradores set nome = :n, id_dpto = :dpto where id = :id';
+            $update = $this->conn->prepare($sql);
+            $update->bindValue(':n', $c->getNome());
+            $update->bindValue(':dpto', $c->getIDDpto());
+            $update->bindValue(':id', $c->getID());
+            $update->execute();
+        }
+
+        public function deleteColaborador(Colaboradores $c)
+        {
+            $sql = 'call deleteColab(:id)';
+            $delete = $this->conn->prepare($sql);
+            $delete->bindValue(':id', $c->getID());
+            $delete->execute();
         }
     }
     

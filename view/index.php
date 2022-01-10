@@ -21,7 +21,7 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="float-start col-3" id="form">
+            <div class="float-start col-3 form">
                 <form action="" method="post" id="addform">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome:</label>
@@ -65,7 +65,7 @@
                                     <td><?=$value['email']?></td>
                                     <td class="text-center"><?=$value['dpto']?></td>
                                     <td class="text-center"><a href="detalhes.php?id=<?=$value['id']?>" class="detalhe"><i class="fas fa-user-check"></i></a></td>
-                                    <td class="text-center"><a href="delete.php?id=<?=$value['id']?>" class="del"><i class="fas fa-trash"></i></a></td>
+                                    <td class="text-center"><a href="../controller/deleteColaborador.php?id=<?=$value['id']?>" class="del"><i class="fas fa-trash"></i></a></td>
                                 </tr>
                         <?php }; ?>
                     </tbody>
