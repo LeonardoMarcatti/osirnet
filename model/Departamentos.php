@@ -42,16 +42,22 @@
             $sql = 'select id, nome from departamentos';
             $select = $this->conn->prepare($sql);
             $select->execute();
-            $result = $select->fetchAll(PDO::FETCH_ASSOC);
-            $dptos = [];
-            foreach ($result as $key => $value) {
-                $dpto = new Departamentos;
-                $dpto->setID($value['id']);
-                $dpto->setNome($value['nome']);
-                \array_push($dptos, $dpto);
-            };
 
-            return $dptos;
+            if ($select->rowCount() >0) {
+                $result = $select->fetchAll(PDO::FETCH_ASSOC);
+                $dptos = [];
+
+                foreach ($result as $key => $value) {
+                    $dpto = new Departamentos;
+                    $dpto->setID($value['id']);
+                    $dpto->setNome($value['nome']);
+                    \array_push($dptos, $dpto);
+                };
+
+                return $dptos;
+            } else {
+                return false;
+            };
         }
 
         public function getDepartamento(Departamentos $d)
@@ -60,13 +66,18 @@
             $select = $this->conn->prepare($sql);
             $select->bindValue(':id', $d->getID());
             $select->execute();
-            $result = $select->fetch(PDO::FETCH_ASSOC);
+
+            if ($select->rowCount() > 0) {
+                $result = $select->fetch(PDO::FETCH_ASSOC);
             
-            $dpto = new Departamentos;
-            $dpto->setID($result['id']);
-            $dpto->setNome($result['nome']);
-            
-            return $dpto;
+                $dpto = new Departamentos;
+                $dpto->setID($result['id']);
+                $dpto->setNome($result['nome']);
+                
+                return $dpto;
+            } else {
+               return false;
+            };
         }
     };
 ?>

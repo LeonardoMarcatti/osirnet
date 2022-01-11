@@ -12,8 +12,8 @@
 
     $lista_docs = $doc_dao->getDocumentos($doc);
 
-    if (isset($_FILES['doc']) && !empty($_FILES['doc']['name'])) {
-       Submit($_FILES['doc']);
+    if (!empty($_FILES['doc']['name'])) {
+        Submit($_FILES['doc']);
 
        $doc->setNome($_FILES['doc']['name']);
        $doc->setIDColab($id);

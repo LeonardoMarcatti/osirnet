@@ -53,7 +53,6 @@
             $select = $this->conn->prepare($sql);
             $select->execute();
             $result = $select->fetchAll(PDO::FETCH_ASSOC);
-
             return $result;
         }
 
